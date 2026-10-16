@@ -1,3 +1,12 @@
+{{- $profileChoices := list "personal" "axon-ivy" -}}
+{{- $profile := promptChoiceOnce . "profile" "Profile" $profileChoices -}}
+data:
+  profile: {{ $profile | quote }}
+diff:
+  command: code
+  args:
+    - --wait
+    - --diff
 merge:
   command: "bash"
   args:

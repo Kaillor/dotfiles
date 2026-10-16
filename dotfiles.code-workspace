@@ -1,10 +1,16 @@
 {
   "folders": [
     {
-      "path": "."
-    }
+      "path": ".",
+    },
   ],
   "extensions": {
-    "recommendations": ["editorconfig.editorconfig", "esbenp.prettier-vscode"]
-  }
+    "recommendations": ["editorconfig.editorconfig", "esbenp.prettier-vscode"],
+  },
+  "settings": {
+    "files.associations": {
+      "*.zsh.tmpl": "shellscript",
+      "*.yaml.tmpl": "yaml",
+    },
+  },
 }

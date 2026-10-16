@@ -1,0 +1,124 @@
+# GENERAL
+
+# chezmoi
+alias cm='chezmoi'
+alias cma='cm add'
+alias cmf='cm forget'
+alias cme='cm edit'
+alias cmea='cme --apply'
+alias cmm='cm merge'
+alias cmd='cm diff'
+alias cmap='cm apply'
+alias cmu='cm update'
+alias cmst='cm status'
+alias cmcd='cm cd'
+alias cmdo='cm doctor'
+alias cmda='cm data'
+
+# git
+alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- $(curl -s https://whatthecommit.com/index.txt)"'
+alias gwipa='gwip --allow-empty'
+
+# github
+alias ghpr='gh pr create --fill'
+alias ghprd='ghpr --draft'
+
+# utility
+alias as='alias | grep'
+alias te='trash-empty -f'
+
+# vscode
+c() {
+  local directory="${1:-.}"
+  local -a workspaces=( "$directory"/*.code-workspace(N) )
+  if (( ${#workspaces} )); then
+    code "${workspaces[1]}"
+  else
+    code "$directory"
+  fi
+}
+
+{{ if eq .profile "axon-ivy" -}}
+# AXON IVY
+
+# eclipse
+e() {
+  (nohup /opt/adoptium/eclipse/eclipse "$@" >/dev/null 2>&1 &) >/dev/null
+}
+_e_release() {
+  local release="$1"
+  local -a args=("${@:2}")
+  if [[ -z "$release" ]]; then
+    echo "No release specified."
+    return 1
+  fi
+  e -data ~/dev/"$release"/workspaces/core "${args[@]}"
+}
+alias em='_e_release master'
+alias e14='_e_release 14.0'
+alias e12='_e_release 12.0'
+alias e10='_e_release 10.0'
+alias e8='_e_release 8.0'
+
+# git
+alias gsw14='gsw release/14.0'
+alias gsw12='gsw release/12.0'
+alias gsw10='gsw release/10.0'
+alias gsw8='gsw release/8.0'
+
+alias grb14='grb release/14.0'
+alias grb12='grb release/12.0'
+alias grb10='grb release/10.0'
+alias grb8='grb release/8.0'
+
+alias gstale='gpod "$(git_current_branch)" && gbm "stale/$(git_current_branch)" && gpsup'
+alias gunstale='gpod "$(git_current_branch)" && gbm "${$(git_current_branch)#stale/}" && gpsup'
+
+# github
+alias ghpr14='ghpr -B release/14.0'
+alias ghpr14d='ghprd -B release/14.0'
+alias ghpr12='ghpr -B release/12.0'
+alias ghpr12d='ghprd -B release/12.0'
+alias ghpr10='ghpr -B release/10.0'
+alias ghpr10d='ghprd -B release/10.0'
+alias ghpr8='ghpr -B release/8.0'
+alias ghpr8d='ghprd -B release/8.0'
+
+alias ghas='gh auth switch'
+
+# maven
+_mvn_release() {
+  local java_version="$1"
+  local release="$2"
+  local -a args=("${@:3}")
+  if [[ -z "$java_version" ]]; then
+    echo "No Java version specified."
+    return 1
+  fi
+  if [[ -z "$release" ]]; then
+    echo "No release specified."
+    return 1
+  fi
+  JAVA_HOME="/usr/lib/jvm/temurin-${java_version}-jdk-amd64" mvn --settings "~/.m2-release-${release}/settings.xml" "${args[@]}"
+}
+alias mvnm='_mvn_release 25 master'
+alias mvn14='_mvn_release 25 14.0'
+alias mvn12='_mvn_release 21 12.0'
+alias mvn10='_mvn_release 17 10.0'
+alias mvn8='_mvn_release 11 8.0'
+
+# maintenance
+alias clean-dev-engine='rm -rf workspace/ch.ivyteam.ivy.jsf.primefaces/target \
+  workspace/ch.ivyteam.ivy.jsf.primefaces/webapps/ivy/WEB-INF/lib* \
+  workspace/ch.ivyteam.ivy.searchengine.feature/target \
+  workspace/ch.ivyteam.ivy.server.file.feature/target'
+
+# pnpm
+alias p='pnpm'
+alias pc='p clean'
+alias pi='p i'
+alias pif='pi --force'
+alias pb='p build'
+alias pp='p package'
+alias psu='p self-update'
+{{- end -}}
