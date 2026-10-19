@@ -9,6 +9,7 @@
   },
   "settings": {
     "files.associations": {
+      "dot_zshenv.tmpl": "shellscript",
       "*.zsh.tmpl": "shellscript",
       "*.yaml.tmpl": "yaml",
     },
