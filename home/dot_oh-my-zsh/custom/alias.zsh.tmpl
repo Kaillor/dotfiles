@@ -30,11 +30,11 @@ alias te='trash-empty -f'
 # vscode
 c() {
   local directory="${1:-.}"
-  local -a workspaces=( "$directory"/*.code-workspace(N) )
+  local -a workspaces=( "${directory}"/*.code-workspace(N) )
   if (( ${#workspaces} )); then
     code "${workspaces[1]}"
   else
-    code "$directory"
+    code "${directory}"
   fi
 }
 
@@ -46,13 +46,13 @@ e() {
   (nohup /opt/adoptium/eclipse/eclipse "$@" >/dev/null 2>&1 &) >/dev/null
 }
 _e_release() {
-  local release="$1"
+  local release="${1}"
   local -a args=("${@:2}")
-  if [[ -z "$release" ]]; then
+  if [[ -z "${release}" ]]; then
     echo "No release specified."
     return 1
   fi
-  e -data ~/dev/"$release"/workspaces/core "${args[@]}"
+  e -data "${HOME}/dev/${release}/workspaces/core" "${args[@]}"
 }
 alias em='_e_release master'
 alias e14='_e_release 14.0'
@@ -88,14 +88,14 @@ alias ghas='gh auth switch'
 
 # maven
 _mvn_release() {
-  local java_version="$1"
-  local release="$2"
+  local java_version="${1}"
+  local release="${2}"
   local -a args=("${@:3}")
-  if [[ -z "$java_version" ]]; then
+  if [[ -z "${java_version}" ]]; then
     echo "No Java version specified."
     return 1
   fi
-  if [[ -z "$release" ]]; then
+  if [[ -z "${release}" ]]; then
     echo "No release specified."
     return 1
   fi
