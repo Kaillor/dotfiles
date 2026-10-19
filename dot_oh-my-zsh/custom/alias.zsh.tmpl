@@ -99,7 +99,7 @@ _mvn_release() {
     echo "No release specified."
     return 1
   fi
-  JAVA_HOME="/usr/lib/jvm/temurin-${java_version}-jdk-amd64" mvn --settings "~/.m2-release-${release}/settings.xml" "${args[@]}"
+  JAVA_HOME="/usr/lib/jvm/temurin-${java_version}-jdk-amd64" mvn --settings "${HOME}/.m2-${release}/settings.xml" "${args[@]}"
 }
 alias mvnm='_mvn_release 25 master'
 alias mvn14='_mvn_release 25 14.0'
