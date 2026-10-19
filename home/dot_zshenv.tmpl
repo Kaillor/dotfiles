@@ -1,14 +1,15 @@
 # GENERAL
 
-export EDITOR="code --wait"
-export VISUAL="$EDITOR"
+export EDITOR='code --wait'
+export VISUAL="${EDITOR}"
 
 {{ if eq .profile "axon-ivy" -}}
 # AXON IVY
 
-export JAVA_HOME="/usr/lib/jvm/temurin-25-jdk-amd64"
+export JAVA_HOME='/usr/lib/jvm/temurin-25-jdk-amd64'
 
 path+=(
-  /opt/apache/maven-3.10.0/bin
+  '/opt/apache/maven-3.10.0/bin'
+  "${HOME}/.local/share/pnpm/bin"
 )
 {{- end -}}
