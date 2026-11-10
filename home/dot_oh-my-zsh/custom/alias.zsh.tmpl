@@ -38,7 +38,8 @@ c() {
   fi
 }
 
-{{ if eq .profile "axon-ivy" -}}
+{{- if eq .profile "axon-ivy" }}
+
 # AXON IVY
 
 # eclipse
@@ -121,4 +122,5 @@ alias pif='pi --force'
 alias pb='p build'
 alias pp='p package'
 alias psu='p self-update'
-{{- end -}}
+
+{{- end }}
