@@ -1,0 +1,30 @@
+# GENERAL
+
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[gpg]
+	format = ssh
+[init]
+	defaultBranch = main
+
+{{- if eq .profile "axon-ivy" }}
+
+# AXON IVY
+
+[user]
+	name = Lukas Giger
+	email = 141232142+ivy-lgi@users.noreply.github.com
+	signingkey = ~/.ssh/id_ecdsa_axon-ivy.pub
+[includeIf "gitdir:~/dev/personal/"]
+	path = .gitconfig_personal
+[includeIf "gitdir:~/.local/share/chezmoi/"]
+	path = .gitconfig_personal
+{{ else if eq .profile "personal" }}
+
+# PERSONAL
+
+{{ includeTemplate "gitconfig_personal.tmpl" . -}}
+
+{{- end -}}
