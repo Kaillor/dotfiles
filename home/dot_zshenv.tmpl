@@ -9,6 +9,8 @@ export VISUAL="${EDITOR}"
 
 export JAVA_HOME='/usr/lib/jvm/temurin-25-jdk-amd64'
 
+export JENKINS_BASIC_AUTH="$(printf '%s:%s' 'ivy-lgi' "$(secret-tool lookup service jenkins account ivy-lgi)" | base64 --wrap=0)"
+
 path+=(
   '/opt/apache/maven-3.10.0/bin'
   "${HOME}/.local/share/pnpm/bin"
